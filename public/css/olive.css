@@ -1,0 +1,18 @@
+body {
+  padding-top: 46px;
+}
+
+.mainView {
+  margin-top: 20px;
+}
+
+.remoteViews {
+  margin-top: 20px;
+}
+
+.localView,
+.remoteView {
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+}

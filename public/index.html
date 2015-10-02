@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Olive - One Click Video Call On The Web</title>
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/todc-bootstrap.css">
+  <link rel="stylesheet" href="/css/cover.css">
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <div class="site-wrapper">
+    <div class="site-wrapper-inner">
+      <div class="cover-container">
+        <div class="masthead clearfix">
+          <div class="inner">
+            <h3 class="masthead-brand">Olive</h3>
+            <nav>
+              <ul class="nav masthead-nav">
+                <li><a href="/features">Features</a></li>
+                <li><a href="https://github.com/fitraditya/Olive">GitHub</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="inner cover">
+          <p class="lead">Create or join a session, and invite up to 3 peoples.</p>
+          <form>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon">https://olive.html5.web.id/s/</div>
+                <input type="text" class="form-control input-lg" id="sessionId" value="">
+              </div>
+            </div>
+            <button type="button" class="btn btn-lg btn-primary" id="startButton">Start</button>
+          </form>
+        </div>
+        <div class="mastfoot">
+          <div class="inner">
+            <p>Olive - One Click Video Call On The Web</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script>
+    $(function () {
+      $('#startButton').on('click', function (event) {
+        event.preventDefault();
+        sessionStorage.setItem('isInisiator', true);
+        sessionStorage.setItem('sessionId', $('#sessionId').val());
+        window.location = '/s/' + sessionStorage.getItem('sessionId');
+      });
+    });
+  </script>
+</body>
+
+</html>

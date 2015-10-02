@@ -1,0 +1,27 @@
+{
+  "name": "olive",
+  "version": "0.0.1",
+  "description": "One click video call on the web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fitraditya/olive.git"
+  },
+  "keywords": [
+    "chat",
+    "webrtc"
+  ],
+  "author": "Fitra Aditya <fitra@g.pl>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fitraditya/olive/issues"
+  },
+  "homepage": "https://github.com/fitraditya/olive#readme",
+  "dependencies": {
+    "mime": "^1.3.4",
+    "node-static": "^0.7.7"
+  }
+}
