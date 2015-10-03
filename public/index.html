@@ -58,7 +58,7 @@
       $('#startButton').on('click', function (event) {
         event.preventDefault();
         sessionStorage.setItem('isInisiator', true);
-        window.location = '/s/' + sessionStorage.getItem('sessionId');
+        window.location = '/s/' + $('#sessionId').val();
       });
     });
   </script>
