@@ -35,7 +35,9 @@ $(function () {
   mainView = $('#mainView')
   localView = $('#localView')
   remoteViews = $('#remoteViews')
-  
+
+  $('#sessionId').val(window.location)
+
   navigator.webkitGetUserMedia({ 'audio': true, 'video': true }, function (stream) {
     localView.attr('src', URL.createObjectURL(stream))
     localStream = stream
@@ -49,23 +51,23 @@ function peerJoin () {
   var sessionId = path[2]
 
   signal = new Signal(sessionId)
-  
+
   signal.onpeer = function (event) {
     var id = event.id
     var peer = event.peer
-    
+
     peer.onmessage = function(event) {
       console.log(event)
       var message = JSON.parse(event.data)
-      
+
       if (!pc && (message.sdp || message.candidate)) {
         start(false, event.id)
         console.log('As participant')
       }
-      
+
       if (message.sdp) {
         var description = new RTCSessionDescription(message.sdp)
-        
+
         pc.setRemoteDescription(description, function () {
           if (pc.remoteDescription.type === 'offer') {
             pc.createAnswer(function (description) {
@@ -82,13 +84,13 @@ function peerJoin () {
         }, logError)
       }
     }
-    
+
     peer.ondisconnect = function (event) {
       console.log(event)
       //if (pc) {
       //  pc.close()
       //}
-      
+
       //pc = null
     }
 
@@ -108,7 +110,7 @@ function start (isInitiator, id) {
   pc = new webkitRTCPeerConnection(iceConfig)
 
   pc.onicecandidate = function (event) {
-    if (event.candidate) {      
+    if (event.candidate) {
       peer.send(id, JSON.stringify({ 'candidate': event.candidate }))
       console.log('Send candidate')
       console.log(event.candidate)
@@ -125,17 +127,17 @@ function start (isInitiator, id) {
       console.log('Send offer')
     }
   }
-  
+
   pc.onaddstream = function (event) {
     remoteViews.append(createRemoteView(id))
     $('#remoteView-' + id).attr('data-id', id)
     $('#remoteView-' + id).attr('src', URL.createObjectURL(event.stream))
-    
+
     if (Object.keys(peers).length === 1) {
       mainView.attr('src', URL.createObjectURL(event.stream))
     }
   }
-  
+
   pc.addStream(localStream)
 }
 
