@@ -7,12 +7,12 @@ One click video call on the web
 * Screen Sharing (next)
 
 ## Installation
-``
+```
 $ git clone https://github.com/fitraditya/olive.git
 $ cd olive
 $ npm install
 $ node index
-``
+```
 
 ## To Do
 * Add group text chat using data channel
