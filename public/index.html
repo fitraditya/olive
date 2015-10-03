@@ -58,7 +58,6 @@
       $('#startButton').on('click', function (event) {
         event.preventDefault();
         sessionStorage.setItem('isInisiator', true);
-        sessionStorage.setItem('sessionId', $('#sessionId').val());
         window.location = '/s/' + sessionStorage.getItem('sessionId');
       });
     });
