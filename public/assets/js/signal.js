@@ -43,7 +43,8 @@ var Signal = function (sessionId) {
         fireEvent({
           type: 'peer',
           id: id,
-          peer: peer
+          peer: peer,
+          join: true
         }, listeners)
 
         socket.emit('invite', {
@@ -61,7 +62,8 @@ var Signal = function (sessionId) {
     fireEvent({
       type: 'peer',
       id: id,
-      peer: peer
+      peer: peer,
+      join: false
     }, listeners)
   })
 

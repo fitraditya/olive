@@ -55,6 +55,7 @@ function peerJoin () {
   signal.onpeer = function (event) {
     var id = event.id
     var peer = event.peer
+    var join = event.join
 
     peer.onmessage = function(event) {
       console.log(event)
@@ -62,7 +63,7 @@ function peerJoin () {
 
       if (!pc && (message.sdp || message.candidate)) {
         start(false, event.id)
-        console.log('As participant')
+        console.log('Accept peer ' + event.id)
       }
 
       if (message.sdp) {
@@ -96,9 +97,9 @@ function peerJoin () {
 
     peers[peer.id] = peer
 
-    if (sessionStorage.getItem('isInisiator')) {
+    if (join) {
       start(true, peer.id)
-      console.log('As initiator')
+      console.log('Calling peer ' + peer.id)
     }
   }
 }
