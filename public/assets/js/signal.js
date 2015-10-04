@@ -35,8 +35,8 @@ var Signal = function (sessionId) {
     console.log('Registered as ' + data.socket + ', session ' + data.session + '.')
     
     data.users.forEach(function (user) {
-      if (user !== myId) {
-        var id = user
+      if (user.socket !== myId) {
+        var id = user.socket
         var peer = new Peer(id)
         
         peers[id] = peer
@@ -48,7 +48,7 @@ var Signal = function (sessionId) {
         }, listeners)
 
         socket.emit('invite', {
-          target: user
+          target: id
         })
       }
     })
@@ -74,6 +74,13 @@ var Signal = function (sessionId) {
     peerHandler(id, message)
   })
 
+  socket.on('leave', function (data) {
+    var id = data.id
+    var peer = peers[id]
+
+    peer.didDisconnect(id)
+  })
+
   function Peer (id) {
     var listeners = {
       'onmessage': null,
@@ -90,7 +97,7 @@ var Signal = function (sessionId) {
       fireEvent({ 'type': 'message', 'id': id, 'data': data }, listeners)
     }
 
-    this.didDisconnect = function () {
+    this.didDisconnect = function (id) {
       fireEvent({ 'type': 'disconnect', 'id': id }, listeners)
     }
 

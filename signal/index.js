@@ -25,7 +25,7 @@ exports.register = function (server, options, next) {
           users: []
         }
       }
-      sessions[data.session].users.push(socket.id)
+      sessions[data.session].users.push({ socket: socket.id })
 
       socket.emit('registered', {
         socket: socket.id,
@@ -66,7 +66,18 @@ exports.register = function (server, options, next) {
       var index = _.findIndex(users, { socket: socket.id })
 
       if (index !== -1) {
+        var session = users[index].session
+        var seindex = _.findIndex(sessions[session].users, { socket: socket.id })
+
         users.splice(index, 1)
+        sessions[session].users.splice(seindex, 1)
+
+        _.forEach(sessions[session].users, function (n, user) {
+          io.to(user.socket).emit('leave', {
+            id: socket.id
+          })
+        })
+
         console.log('- ' + socket.id + ' disconnected.')
       }
     })

@@ -92,6 +92,13 @@ function peerJoin () {
       }
 
       pcs[id] = null
+
+      $('#remoteView-' + id).remove()
+      if (mainView.attr('data-id') === id) {
+        mainView.attr('src', localView.attr('src'))
+      }
+
+      console.log(id + ' leave session')
     }
 
     peers[peer.id] = peer
@@ -132,6 +139,7 @@ function start (isInitiator, id) {
       $('#remoteView-' + id).attr('src', URL.createObjectURL(event.stream))
 
       if (!mainView.attr('src')) {
+        mainView.attr('data-id', id)
         mainView.attr('src', URL.createObjectURL(event.stream))
       }
     }
