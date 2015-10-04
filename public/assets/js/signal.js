@@ -103,13 +103,10 @@ var Signal = function (sessionId) {
   }
 
   function peerHandler (id, message) {
-    console.log(id)
-    console.log(peers)
     var peer = peers[id]
     
     if (peer) {
       peer.didMessage(id, message)
-      console.log(message)
     }
   }
 
