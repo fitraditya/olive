@@ -25,5 +25,5 @@ if (Config.client.enable) {
 }
 
 server.start(function () {
-  console.log('Server started at: ' + server.info.uri + '.')
+  console.log('Server started at: ' + Config.server.port + '.')
 })
