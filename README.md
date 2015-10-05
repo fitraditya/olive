@@ -11,8 +11,25 @@ One click video call on the web
 $ git clone https://github.com/fitraditya/olive.git
 $ cd olive
 $ npm install
-$ node index
+$ npm start
 ```
+
+## Configuration
+You can set server port on `config.js`.
+```javascript
+module.exports = {
+  server: {
+    port: 4567
+  },
+  client: {
+    enable: true,
+    port: 8000
+  }
+}
+```
+
+### Enable Web Client
+Olive comes with web client. It serves with different port. You can choose whether to enable it or not in `config.js`.
 
 ## To Do
 * Add group text chat using data channel
