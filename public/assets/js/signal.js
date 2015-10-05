@@ -33,12 +33,12 @@ var Signal = function (sessionId) {
   socket.on('registered', function (data) {
     myId = data.socket
     console.log('Registered as ' + data.socket + ', session ' + data.session + '.')
-    
+
     data.users.forEach(function (user) {
       if (user.socket !== myId) {
         var id = user.socket
         var peer = new Peer(id)
-        
+
         peers[id] = peer
         fireEvent({
           type: 'peer',
@@ -57,7 +57,7 @@ var Signal = function (sessionId) {
   socket.on('invited', function (data) {
     var id = data.id
     var peer = new Peer(id)
-    
+
     peers[id] = peer
     fireEvent({
       type: 'peer',
@@ -70,7 +70,7 @@ var Signal = function (sessionId) {
   socket.on('message', function (data) {
     var id = data.id
     var message = data.message
-    
+
     peerHandler(id, message)
   })
 
@@ -111,7 +111,7 @@ var Signal = function (sessionId) {
 
   function peerHandler (id, message) {
     var peer = peers[id]
-    
+
     if (peer) {
       peer.didMessage(id, message)
     }
