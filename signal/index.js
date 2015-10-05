@@ -34,7 +34,6 @@ exports.register = function (server, options, next) {
       })
 
       console.log('- ' + socket.id + ' registered, session ' + data.session)
-      console.log(sessions[data.session])
     })
 
     socket.on('invite', function (data) {
@@ -72,7 +71,7 @@ exports.register = function (server, options, next) {
         users.splice(index, 1)
         sessions[session].users.splice(seindex, 1)
 
-        _.forEach(sessions[session].users, function (n, user) {
+        _.forEach(sessions[session].users, function (user, n) {
           io.to(user.socket).emit('leave', {
             id: socket.id
           })

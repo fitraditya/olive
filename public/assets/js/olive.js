@@ -93,7 +93,7 @@ function peerJoin () {
 
       pcs[id] = null
 
-      $('#remoteView-' + id).remove()
+      $('#remoteView-' + id).parent().parent().remove()
       if (mainView.attr('data-id') === id) {
         mainView.attr('src', localView.attr('src'))
       }
