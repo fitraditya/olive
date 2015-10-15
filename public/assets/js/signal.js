@@ -65,6 +65,8 @@ var Signal = function (sessionId) {
       peer: peer,
       join: false
     }, listeners)
+
+    console.log('Invited')
   })
 
   socket.on('message', function (data) {
