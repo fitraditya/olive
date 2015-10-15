@@ -7,6 +7,7 @@ exports.register = function (server, options, next) {
   var io = require('socket.io')(server.select('signal').listener)
 
   io.on('connection', function (socket) {
+    console.log('- ' + socket.id + ' has connected')
 
     socket.on('register', function (data) {
       if (_.findIndex(users, { socket: socket.id }) !== -1) {
@@ -19,12 +20,18 @@ exports.register = function (server, options, next) {
         session: data.session
       })
 
+      // For mobile
+      if (!sessions[data.session]) {
+        data.isInitiator = true
+      }
+
       if (data.isInitiator) {
         sessions[data.session] = {
           initiator: socket.id,
           users: []
         }
       }
+
       sessions[data.session].users.push({ socket: socket.id })
 
       socket.emit('registered', {
@@ -46,6 +53,8 @@ exports.register = function (server, options, next) {
       io.to(target.socket).emit('invited', {
         id: socket.id
       })
+
+      console.log('- ' + socket.id + ' invited ' + data.target)
     })
 
     socket.on('message', function (data) {
@@ -59,6 +68,9 @@ exports.register = function (server, options, next) {
         id: socket.id,
         message: data.message
       })
+
+      console.log('- ' + socket.id + ' sent message to ' + data.target)
+      console.log(data.message)
     })
 
     socket.on('disconnect', function () {
